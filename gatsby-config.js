@@ -117,6 +117,71 @@ module.exports = {
         icon: `content/assets/pwa/icon.png`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-flexsearch',
+      options: {
+        languages: ['en'],
+        type: 'MarkdownRemark',
+        fields: [
+          {
+            name: 'title',
+            indexed: true,
+            resolver: 'frontmatter.title',
+            attributes: {
+              encode: 'balance',
+              tokenize: 'strict',
+              threshold: 0,
+              resolution: 3,
+              depth: 3,
+            },
+            store: true,
+          },
+          {
+            name: 'category',
+            indexed: true,
+            resolver: 'frontmatter.category',
+            attributes: {
+              encode: 'balance',
+              tokenize: 'strict',
+              threshold: 0,
+              resolution: 3,
+              depth: 3,
+            },
+            store: true
+          },
+          {
+            name: 'tags',
+            indexed: true,
+            resolver: 'frontmatter.tags',
+            attributes: {
+              encode: 'icase',
+              tokenize: 'strict',
+              threshold: 0,
+              resolution: 9,
+            },
+            store: true,
+          },
+          {
+            name: 'keywords',
+            indexed: true,
+            resolver: 'frontmatter.keywords',
+            attributes: {
+              encode: 'balance',
+              tokenize: 'strict',
+              threshold: 0,
+              resolution: 3,
+            },
+            store: true,
+          },
+          {
+            name: 'url',
+            indexed: false,
+            resolver: 'fields.slug',
+            store: true,
+          },
+        ],
+      },
+    },
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
   ],
