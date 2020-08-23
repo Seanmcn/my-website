@@ -16,8 +16,6 @@ class Search extends Component {
     /* eslint no-underscore-dangle: 0 */
     const { index , store } = window.__FLEXSEARCH__.en
 
-    console.log('index', index);
-    console.log('store', store);
     if (!query || !index) {
       return []
     }
@@ -51,7 +49,7 @@ class Search extends Component {
     const ResultList = () => {
       if (results.length > 0) {
         return results.map((page) => (
-          <div className="item-search" key={page.slug}>
+          <div className="item-search" key={page.url}>
             <Link to={page.url} className="link">
               <h4>{page.title}</h4>
             </Link>
