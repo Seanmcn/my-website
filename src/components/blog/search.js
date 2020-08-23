@@ -36,7 +36,6 @@ class Search extends Component {
   search = event => {
     const { query } = this.state
     const queryValue = event.target.value
-    console.log('queryValue', queryValue);
     if (query.length > 2) {
       const results = Search.getSearchResults(queryValue)
       this.setState({ results, query: queryValue })
@@ -48,9 +47,6 @@ class Search extends Component {
   render () {
     const { results, query } = this.state
     const { classNames } = this.props
-
-    console.log('results', results);
-    console.log('query', query);
 
     const ResultList = () => {
       if (results.length > 0) {

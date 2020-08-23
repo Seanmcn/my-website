@@ -121,18 +121,25 @@ module.exports = {
       resolve: 'gatsby-plugin-flexsearch',
       options: {
         languages: ['en'],
-        type: 'MarkdownRemark',
+        type: 'Mdx',
         fields: [
           {
             name: 'title',
             indexed: true,
             resolver: 'frontmatter.title',
             attributes: {
-              encode: 'balance',
+              // The encoding type. https://github.com/nextapps-de/flexsearch#phonetic
+              encode: 'simple',
+              // The indexing mode (tokenizer) https://github.com/nextapps-de/flexsearch#tokenizer
               tokenize: 'strict',
-              threshold: 0,
+              // Enable/Disable the threshold of minimum relevance all results should have.
+              threshold: 1,
+              // Sets the scoring resolution (default: 9).
               resolution: 3,
-              depth: 3,
+              // Enable/Disable contextual indexing and also sets contextual distance of relevance.
+              // https://github.com/nextapps-de/flexsearch#contextual
+              // Depth is the maximum number of words/tokens away a term to be considered as relevant.
+              depth: 2,
             },
             store: true,
           },
@@ -141,11 +148,10 @@ module.exports = {
             indexed: true,
             resolver: 'frontmatter.category',
             attributes: {
-              encode: 'balance',
+              encode: 'simple',
               tokenize: 'strict',
+              resolution: 12,
               threshold: 0,
-              resolution: 3,
-              depth: 3,
             },
             store: true
           },
@@ -154,10 +160,10 @@ module.exports = {
             indexed: true,
             resolver: 'frontmatter.tags',
             attributes: {
-              encode: 'icase',
-              tokenize: 'strict',
+              encode: 'simple',
+              tokenize: 'full',
+              resolution: 15,
               threshold: 0,
-              resolution: 9,
             },
             store: true,
           },
@@ -166,10 +172,15 @@ module.exports = {
             indexed: true,
             resolver: 'frontmatter.keywords',
             attributes: {
-              encode: 'balance',
-              tokenize: 'strict',
+              encode: 'simple',
+              // tokenize(val){
+              //   return val.split(/[[{,}\]]+/);
+              // },
+              tokenize: 'full',
+              // encode: "advanced",
+              // tokenize: "forward",
+              resolution: 15,
               threshold: 0,
-              resolution: 3,
             },
             store: true,
           },
@@ -177,6 +188,12 @@ module.exports = {
             name: 'url',
             indexed: false,
             resolver: 'fields.slug',
+            store: true,
+          },
+          {
+            name: 'id',
+            indexed: false,
+            resolver: 'id',
             store: true,
           },
         ],
